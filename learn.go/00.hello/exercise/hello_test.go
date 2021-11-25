@@ -10,10 +10,10 @@ func TestExercise(t *testing.T) {
 	var touHigh int = 6
 	var jianHigh int = 25
 	var kuang int = 50
-	for i := 0; i <= touHigh+jianHigh; i++ {
-		for j := 0; j <= kuang; j++ {
+	for i := 1; i <= touHigh+jianHigh; i++ {
+		for j := 1; j <= kuang; j++ {
 			if i <= touHigh {
-				if j > (kuang/2+1)+1-i && j <= (kuang/2+1)-1+i {
+				if j >= (kuang/2+1)+1-i && j <= (kuang/2+1)-1+i {
 					fmt.Print("*")
 				} else {
 					fmt.Print("-")
