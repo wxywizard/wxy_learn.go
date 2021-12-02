@@ -9,8 +9,9 @@ import (
 )
 
 const (
-	man   int = 1
-	woman int = 0
+	man   int    = 1
+	woman int    = 0
+	exit  string = "N"
 )
 
 var (
@@ -26,7 +27,7 @@ func main() {
 		fmt.Println("whether to continue？(Y/N)")
 		isContinue := read("isContinue")
 		upper := strings.ToUpper(strings.TrimSpace(isContinue))
-		if "N" == upper {
+		if exit == upper {
 			os.Exit(-1)
 		}
 	}
