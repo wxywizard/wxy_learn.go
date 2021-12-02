@@ -22,7 +22,7 @@ var (
 func main() {
 	for {
 		s := process()
-		fmt.Println("the physique is " + s)
+		fmt.Println(s)
 		fmt.Println("whether to continue？(Y/N)")
 		isContinue := read("isContinue")
 		upper := strings.ToUpper(strings.TrimSpace(isContinue))
@@ -33,10 +33,12 @@ func main() {
 }
 
 func process() string {
+	fmt.Print("Please enter your name: ")
+	name := read("height")
 	var sex int
-	fmt.Println("Please enter sex: ")
+	fmt.Print("Please enter sex: ")
 	s := read("sex")
-	switch strings.TrimSpace(s) {
+	switch s {
 	case "男":
 		sex = man
 	case "女":
@@ -44,25 +46,25 @@ func process() string {
 	default:
 		fmt.Println("the input is invalid")
 	}
-	fmt.Println("Please enter weight(kg): ")
+	fmt.Print("Please enter weight(kg): ")
 	w := read("weight")
-	wFloat, wErr := strconv.ParseFloat(strings.TrimSpace(w), 64)
+	wFloat, wErr := strconv.ParseFloat(w, 64)
 	if wErr == nil {
 		weight = wFloat
 	} else {
 		fmt.Println("the input is invalid")
 	}
-	fmt.Println("Please enter height(m): ")
+	fmt.Print("Please enter height(m): ")
 	h := read("height")
-	hFloat, hErr := strconv.ParseFloat(strings.TrimSpace(h), 64)
+	hFloat, hErr := strconv.ParseFloat(h, 64)
 	if hErr == nil {
 		height = hFloat
 	} else {
 		fmt.Println("the input is invalid")
 	}
-	fmt.Println("Please enter age: ")
+	fmt.Print("Please enter age: ")
 	a := read("age")
-	aInt, aErr := strconv.ParseInt(strings.TrimSpace(a), 10, 64)
+	aInt, aErr := strconv.ParseInt(a, 10, 64)
 	if aErr == nil {
 		age = aInt
 	} else {
@@ -77,7 +79,7 @@ func process() string {
 	if sex == woman {
 		physiqueResult = switchWoman(physique, age)
 	}
-	return physiqueResult
+	return name + "：目前的体脂为 " + physiqueResult
 }
 
 func read(msg string) string {
@@ -86,7 +88,7 @@ func read(msg string) string {
 	if err == nil {
 		fmt.Printf("The input "+msg+" was: %s\n", readString)
 	}
-	return readString
+	return strings.TrimSpace(readString)
 }
 
 /**
@@ -106,7 +108,7 @@ func switchMan(physique float64, age int64) string {
 			result = "偏瘦"
 		}
 		if physique > 0.10 && physique <= 0.16 {
-			result = "标注"
+			result = "标准"
 		}
 		if physique > 0.16 && physique <= 0.21 {
 			result = "偏重"
@@ -124,7 +126,7 @@ func switchMan(physique float64, age int64) string {
 			result = "偏瘦"
 		}
 		if physique > 0.11 && physique <= 0.17 {
-			result = "标注"
+			result = "标准"
 		}
 		if physique > 0.17 && physique <= 0.22 {
 			result = "偏重"
@@ -142,7 +144,7 @@ func switchMan(physique float64, age int64) string {
 			result = "偏瘦"
 		}
 		if physique > 0.13 && physique <= 0.19 {
-			result = "标注"
+			result = "标准"
 		}
 		if physique > 0.19 && physique <= 0.24 {
 			result = "偏重"
@@ -165,7 +167,7 @@ func switchWoman(physique float64, age int64) string {
 			result = "偏瘦"
 		}
 		if physique > 0.19 && physique <= 0.27 {
-			result = "标注"
+			result = "标准"
 		}
 		if physique > 0.27 && physique <= 0.34 {
 			result = "偏重"
@@ -183,7 +185,7 @@ func switchWoman(physique float64, age int64) string {
 			result = "偏瘦"
 		}
 		if physique > 0.21 && physique <= 0.28 {
-			result = "标注"
+			result = "标准"
 		}
 		if physique > 0.28 && physique <= 0.35 {
 			result = "偏重"
@@ -201,7 +203,7 @@ func switchWoman(physique float64, age int64) string {
 			result = "偏瘦"
 		}
 		if physique > 0.22 && physique <= 0.29 {
-			result = "标注"
+			result = "标准"
 		}
 		if physique > 0.29 && physique <= 0.36 {
 			result = "偏重"
