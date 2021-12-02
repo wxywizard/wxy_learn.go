@@ -95,7 +95,7 @@ BMI=体重（公斤）÷（身高×身高）（米）
 */
 func calculationPhysique(w float64, h float64, a int64, s int) float64 {
 	bmi := w / (h * h)
-	result := 1.2*bmi + 0.23*float64(a) - 5.4 - 10.8*float64(s)
+	result := (1.2*bmi + 0.23*float64(a) - 5.4 - 10.8*float64(s)) / 100
 	return result
 }
 
