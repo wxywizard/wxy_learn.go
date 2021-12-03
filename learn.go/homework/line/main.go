@@ -13,7 +13,7 @@ func main() {
 
 func parallel(x1 float64, y1 float64, x2 float64, y2 float64,
 	x3 float64, y3 float64, x4 float64, y4 float64) string {
-	var result string
+	var result string = "两直线不平行"
 	if x1 == x2 || x3 == x4 {
 		if x1 == x2 && x3 == x4 {
 			result = "两直线平行"
