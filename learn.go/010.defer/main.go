@@ -6,6 +6,12 @@ type Test struct {
 	name string
 }
 
+/*
+func (t Test) Close() {
+	fmt.Println(t.name, "closed")
+}
+*/
+
 func (t *Test) Close() {
 	fmt.Println(t.name, "closed")
 }
