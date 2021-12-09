@@ -20,6 +20,9 @@ func main() {
 	ts := []Test{{"a"}, {"b"}, {"c"}}
 	for _, t := range ts {
 		fmt.Println(t)
+		//defer func(t Test){
+		//	t.Close()
+		//}(t)
 		defer t.Close()
 	}
 }
