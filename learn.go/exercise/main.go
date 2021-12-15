@@ -1,7 +1,7 @@
 package main
 
 import (
-	gu "learn.go/homework/exercise/guess"
+	gu "learn.go/exercise/guess"
 )
 
 func main() {
