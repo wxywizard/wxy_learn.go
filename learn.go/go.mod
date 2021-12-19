@@ -14,4 +14,9 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 )
 
-replace github.com/wxywizard/go_bmi => ./staging/src/github.com/wxywizard/go_bmi
+replace (
+	//二次开发的工具包重新指定fork
+	//github.com/spf13/cobra => github.com/armstrongli/cobra v1.2.0
+	//本地
+	github.com/wxywizard/go_bmi => ./staging/src/github.com/wxywizard/go_bmi
+)
