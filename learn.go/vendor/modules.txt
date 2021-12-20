@@ -13,4 +13,7 @@ github.com/spf13/pflag
 # github.com/wxywizard/go_bmi v0.0.0-00010101000000-000000000000 => ./staging/src/github.com/wxywizard/go_bmi
 ## explicit; go 1.17
 github.com/wxywizard/go_bmi
+# github.com/wxywizard/go_example v0.0.4
+## explicit; go 1.17
+github.com/wxywizard/go_example/go_bmi
 # github.com/wxywizard/go_bmi => ./staging/src/github.com/wxywizard/go_bmi
