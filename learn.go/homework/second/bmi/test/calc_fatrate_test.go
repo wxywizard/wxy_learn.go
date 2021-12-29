@@ -15,7 +15,7 @@ func TestFatRateCase1(t *testing.T) {
 
 //case2 第一种情况
 func TestFatRateCase2(t *testing.T) {
-	_, err := CalcFatRate(0, 30, "男")
+	_, err := CalcFatRate(-1, 30, "男")
 	if err == nil {
 		t.Error("should be error, but err returned is nil")
 	}
