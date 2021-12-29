@@ -1,6 +1,16 @@
 package gobmi
 
-func CalcFatRate(bmi float64, age int, sex string) (fatRate float64) {
+import "fmt"
+
+func CalcFatRate(bmi float64, age int, sex string) (fatRate float64, err error) {
+	if bmi < 0 {
+		err = fmt.Errorf("bmi cannot be negative")
+		return
+	}
+	if age < 0 {
+		err = fmt.Errorf("age cannot be negative")
+		return
+	}
 	sexWeight := 0
 	if sex == "男" {
 		sexWeight = 1
