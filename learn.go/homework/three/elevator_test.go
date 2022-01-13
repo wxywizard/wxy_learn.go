@@ -1,36 +1,31 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
-func TestRunCase1(t *testing.T) {
+func TestElevatorRun(t *testing.T) {
 	el := Elevator{
-		currentFloor: 1,
-		totalFloor:   5,
-		pressFloors:  make([]int, 0),
-		direction:    0,
+		currentFloor: 3,
+		totalFloor:   8,
+		pressFloors:  []int{4, 5, 2},
+		direction:    1,
 	}
-	expectCurrentFloor := 1
-	t.Logf("当前总楼层是%d", el.totalFloor)
-	if len(el.pressFloors) == 0 {
-		if el.currentFloor != expectCurrentFloor {
-			t.Fatal("没有人按电梯，应该停止不动")
-		}
+	err := el.ElevatorRun()
+	if err != nil {
+		t.Fatal("出现错误，与预期不符")
 	}
 }
 
-func TestRunCase2(t *testing.T) {
-	el := Elevator{
-		currentFloor: 1,
-		totalFloor:   5,
-		pressFloors:  []int{3},
-		direction:    0,
-	}
-	//expectCurrentFloor := 3
+func TestPress(t *testing.T) {
+	el := Elevator{}
+	totalFloor := 5
+	err := el.Press(5, []int{3, 4, 5}, 1)
 	t.Logf("当前总楼层是%d", el.totalFloor)
-	for _, item := range el.pressFloors {
-		fmt.Println(item)
+	if err != nil {
+		t.Fatal("出现错误，与预期不符")
+	}
+	if totalFloor != el.totalFloor {
+		t.Fatal("出现错误，与预期不符")
 	}
 }
