@@ -8,6 +8,7 @@ type Person struct {
 /**
 注册
 */
-func (p *Person) register() {
-
+func (p *Person) register(name string, fatRate float64) {
+	p.name = name
+	p.fatRate = fatRate
 }
