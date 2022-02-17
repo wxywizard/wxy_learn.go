@@ -10,7 +10,8 @@ import (
 )
 
 func main() {
-	//useChannel()
+	useChannel()
+	fmt.Println("------------------------")
 	useLock()
 }
 
