@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"os"
 	"strconv"
 	"sync"
 	"time"
@@ -12,7 +13,6 @@ import (
 
 func main() {
 	useChannel()
-
 }
 
 func useChannel() {
@@ -36,9 +36,15 @@ func useChannel() {
 			if err != nil {
 				fmt.Println("marshal 出错：", err)
 			}
-			if err := p.writeFileWithAppendJson(data, "/Users/will/develop/myworkspaceAll/go/src/wxy_learn.go/person.json"); err != nil {
-				log.Println("写入JSON时出错：", err)
+			if str, err := os.Getwd(); err == nil {
+				path := str
+				if err := p.writeFileWithAppendJson(data, path+"/homework/five/person.json"); err != nil {
+					log.Println("写入JSON时出错：", err)
+				}
+			} else {
+				log.Fatal("获取当前路径出错")
 			}
+
 			chanPerson <- p
 		}(i)
 	}
