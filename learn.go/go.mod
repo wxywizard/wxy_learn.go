@@ -13,7 +13,15 @@ require (
 )
 
 require (
+	gorm.io/driver/mysql v1.3.2
+	gorm.io/gorm v1.23.3
+)
+
+require (
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 )
 
@@ -21,6 +29,6 @@ require (
 //github.com/spf13/cobra => github.com/armstrongli/cobra v1.2.0
 //本地
 replace (
-	github.com/wxywizard/go_bmi => ./staging/src/github.com/wxywizard/go_bmi
 	github.com/armstrongli/go-bmi => ./staging/src/github.com/armstrongli/go-bmi
+	github.com/wxywizard/go_bmi => ./staging/src/github.com/wxywizard/go_bmi
 )

@@ -1,9 +1,18 @@
 # github.com/armstrongli/go-bmi v0.0.1 => ./staging/src/github.com/armstrongli/go-bmi
 ## explicit; go 1.16
 github.com/armstrongli/go-bmi
+# github.com/go-sql-driver/mysql v1.6.0
+## explicit; go 1.10
+github.com/go-sql-driver/mysql
 # github.com/inconshreveable/mousetrap v1.0.0
 ## explicit
 github.com/inconshreveable/mousetrap
+# github.com/jinzhu/inflection v1.0.0
+## explicit
+github.com/jinzhu/inflection
+# github.com/jinzhu/now v1.1.4
+## explicit; go 1.12
+github.com/jinzhu/now
 # github.com/shopspring/decimal v1.3.1
 ## explicit; go 1.13
 github.com/shopspring/decimal
@@ -19,5 +28,17 @@ github.com/wxywizard/go_bmi
 # github.com/wxywizard/go_example v0.0.4
 ## explicit; go 1.17
 github.com/wxywizard/go_example/go_bmi
-# github.com/wxywizard/go_bmi => ./staging/src/github.com/wxywizard/go_bmi
+# gorm.io/driver/mysql v1.3.2
+## explicit; go 1.14
+gorm.io/driver/mysql
+# gorm.io/gorm v1.23.3
+## explicit; go 1.14
+gorm.io/gorm
+gorm.io/gorm/callbacks
+gorm.io/gorm/clause
+gorm.io/gorm/logger
+gorm.io/gorm/migrator
+gorm.io/gorm/schema
+gorm.io/gorm/utils
 # github.com/armstrongli/go-bmi => ./staging/src/github.com/armstrongli/go-bmi
+# github.com/wxywizard/go_bmi => ./staging/src/github.com/wxywizard/go_bmi
