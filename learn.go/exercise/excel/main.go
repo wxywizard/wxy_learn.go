@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	f, err := excelize.OpenFile("/Users/will/Downloads/组织映射表.xlsx")
+	f, err := excelize.OpenFile("/Users/will/Downloads/经营分析资料/组织映射表.xlsx")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -20,19 +20,18 @@ func main() {
 	//}
 	//fmt.Println(cell)
 	// 获取 Sheet1 上所有单元格
-	rows, err := f.GetRows("Sheet6")
+	rows, err := f.GetRows("Sheet0")
 	sql := make([]string, 0)
-	fmt.Println(rows[171])
-	for i, row := range rows {
+	fmt.Println(len(rows))
+	for i, row := range rows[1:] {
 		//for _, colCell := range row {
 		//	fmt.Print(colCell, "\t")
 		//}
 		str := generatorSql(row)
 		fmt.Println("index===", i)
 		sql = append(sql, str)
-		writeFileWithAppend("/Users/will/Downloads/data.sql", sql)
-
 	}
+	writeFileWithAppend("/Users/will/Downloads/td_cre_6s_erp_project_map_data.sql", sql)
 }
 
 func writeFileWithAppend(filePath string, sql []string) {
@@ -51,28 +50,27 @@ func writeFileWithAppend(filePath string, sql []string) {
 	// b := make([]byte, 10)
 	// var n int
 	for _, s := range sql {
-		_, err = file.WriteString(s + "\n")
+		_, err = file.WriteString(s)
 	}
 
 }
 
-func generatorSql(row []string) string {
+func generatorSql(row []string) (str string) {
 	fmt.Println(len(row))
-	str := ""
 	if len(row) > 4 {
 		str = "insert into atm_dw.td_cre_6s_erp_project_map " +
 			"(bi_project_code,bi_project_name,staging_code,staging_name," +
 			"f6s_project_code_overall,f6s_project_name_overall,f6s_project_code_child," +
 			"f6s_project_name_child,subsidiary_business,budget_project_code,budget_project_name," +
 			"flag) values ('" + row[0] + "','" + row[1] + "','" + row[2] + "','" + row[3] + "','" + row[4] + "','" +
-			row[5] + "','" + row[6] + "','" + row[7] + "','" + row[8] + "','" + row[9] + "','" + row[10] + "',false);"
+			row[5] + "','" + row[6] + "','" + row[7] + "','" + row[8] + "','" + row[9] + "','" + row[10] + "',false);\n"
 	} else {
 		str = "insert into atm_dw.td_cre_6s_erp_project_map " +
 			"(bi_project_code,bi_project_name,staging_code,staging_name," +
 			"f6s_project_code_overall,f6s_project_name_overall,f6s_project_code_child," +
 			"f6s_project_name_child,subsidiary_business,budget_project_code,budget_project_name," +
-			"flag) values ('" + row[0] + "','" + row[1] + "','" + row[2] + "','" + row[3] + "',null,null,null,null,null,null,null,false);"
+			"flag) values ('" + row[0] + "','" + row[1] + "','" + row[2] + "','" + row[3] + "',null,null,null,null,null,null,null,false);\n"
 	}
-	return str
+	return
 
 }
