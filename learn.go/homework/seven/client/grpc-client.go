@@ -27,36 +27,4 @@ func main() {
 	}
 	log.Println("注册成功", ret)
 
-	//log.Println("开始批量注册")
-	//regCli, err := c.RegisterPersons(context.TODO())
-	//if err := regCli.Send(&apis.PersonalInformation{
-	//	Name:   "tom-3",
-	//	Sex:    "男",
-	//	Tall:   1.7,
-	//	Weight: 70,
-	//	Age:    30,
-	//}); err != nil {
-	//	log.Fatal("注册时失败：", err)
-	//}
-	//if err := regCli.Send(&apis.PersonalInformation{
-	//	Name:   "tom-1",
-	//	Sex:    "男",
-	//	Tall:   1.7,
-	//	Weight: 70,
-	//	Age:    30,
-	//}); err != nil {
-	//	log.Fatal("注册时失败：", err)
-	//}
-	//if err := regCli.Send(&apis.PersonalInformation{
-	//	Name:   "tom-2",
-	//	Sex:    "男",
-	//	Tall:   1.7,
-	//	Weight: 70,
-	//	Age:    30,
-	//}); err != nil {
-	//	log.Fatal("注册时失败：", err)
-	//}
-	//regCli.CloseAndRecv()
-	//
-
 }

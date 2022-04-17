@@ -2,12 +2,11 @@ package main
 
 import (
 	"context"
+	"learn.go/pkg/apis"
 	"log"
 	"net"
 
 	"google.golang.org/grpc"
-	"learn.go/chapter13/02.grpc/server/ranks"
-	"learn.go/pkg/apis"
 )
 
 func main() {
@@ -23,9 +22,8 @@ func startGRPCServer(ctx context.Context) {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer([]grpc.ServerOption{}...)
-	apis.RegisterChatServiceServer(s, &rankServer{
-		rankS:    ranks.NewFatRateRank(),
-		personCh: make(chan *apis.PersonalInformation, 1024),
+	apis.RegisterChatServiceServer(s, &chatServer{
+		persons: map[int64]*apis.PersonalInformation{},
 	})
 	go func() {
 		select {

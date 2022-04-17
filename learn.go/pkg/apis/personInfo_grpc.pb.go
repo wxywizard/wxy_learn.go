@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ChatServiceClient interface {
 	Register(ctx context.Context, in *PersonalInformation, opts ...grpc.CallOption) (*PersonalInformation, error)
+	RegisterPersons(ctx context.Context, opts ...grpc.CallOption) (ChatService_RegisterPersonsClient, error)
+	WatchPersons(ctx context.Context, in *Null, opts ...grpc.CallOption) (ChatService_WatchPersonsClient, error)
 }
 
 type chatServiceClient struct {
@@ -42,11 +44,79 @@ func (c *chatServiceClient) Register(ctx context.Context, in *PersonalInformatio
 	return out, nil
 }
 
+func (c *chatServiceClient) RegisterPersons(ctx context.Context, opts ...grpc.CallOption) (ChatService_RegisterPersonsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &ChatService_ServiceDesc.Streams[0], "/apis.ChatService/RegisterPersons", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &chatServiceRegisterPersonsClient{stream}
+	return x, nil
+}
+
+type ChatService_RegisterPersonsClient interface {
+	Send(*PersonalInformation) error
+	CloseAndRecv() (*PersonalInformationList, error)
+	grpc.ClientStream
+}
+
+type chatServiceRegisterPersonsClient struct {
+	grpc.ClientStream
+}
+
+func (x *chatServiceRegisterPersonsClient) Send(m *PersonalInformation) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *chatServiceRegisterPersonsClient) CloseAndRecv() (*PersonalInformationList, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(PersonalInformationList)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *chatServiceClient) WatchPersons(ctx context.Context, in *Null, opts ...grpc.CallOption) (ChatService_WatchPersonsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &ChatService_ServiceDesc.Streams[1], "/apis.ChatService/WatchPersons", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &chatServiceWatchPersonsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ChatService_WatchPersonsClient interface {
+	Recv() (*PersonalInformation, error)
+	grpc.ClientStream
+}
+
+type chatServiceWatchPersonsClient struct {
+	grpc.ClientStream
+}
+
+func (x *chatServiceWatchPersonsClient) Recv() (*PersonalInformation, error) {
+	m := new(PersonalInformation)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // ChatServiceServer is the server API for ChatService service.
 // All implementations must embed UnimplementedChatServiceServer
 // for forward compatibility
 type ChatServiceServer interface {
 	Register(context.Context, *PersonalInformation) (*PersonalInformation, error)
+	RegisterPersons(ChatService_RegisterPersonsServer) error
+	WatchPersons(*Null, ChatService_WatchPersonsServer) error
 	mustEmbedUnimplementedChatServiceServer()
 }
 
@@ -56,6 +126,12 @@ type UnimplementedChatServiceServer struct {
 
 func (UnimplementedChatServiceServer) Register(context.Context, *PersonalInformation) (*PersonalInformation, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (UnimplementedChatServiceServer) RegisterPersons(ChatService_RegisterPersonsServer) error {
+	return status.Errorf(codes.Unimplemented, "method RegisterPersons not implemented")
+}
+func (UnimplementedChatServiceServer) WatchPersons(*Null, ChatService_WatchPersonsServer) error {
+	return status.Errorf(codes.Unimplemented, "method WatchPersons not implemented")
 }
 func (UnimplementedChatServiceServer) mustEmbedUnimplementedChatServiceServer() {}
 
@@ -88,6 +164,53 @@ func _ChatService_Register_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChatService_RegisterPersons_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ChatServiceServer).RegisterPersons(&chatServiceRegisterPersonsServer{stream})
+}
+
+type ChatService_RegisterPersonsServer interface {
+	SendAndClose(*PersonalInformationList) error
+	Recv() (*PersonalInformation, error)
+	grpc.ServerStream
+}
+
+type chatServiceRegisterPersonsServer struct {
+	grpc.ServerStream
+}
+
+func (x *chatServiceRegisterPersonsServer) SendAndClose(m *PersonalInformationList) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *chatServiceRegisterPersonsServer) Recv() (*PersonalInformation, error) {
+	m := new(PersonalInformation)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _ChatService_WatchPersons_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Null)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ChatServiceServer).WatchPersons(m, &chatServiceWatchPersonsServer{stream})
+}
+
+type ChatService_WatchPersonsServer interface {
+	Send(*PersonalInformation) error
+	grpc.ServerStream
+}
+
+type chatServiceWatchPersonsServer struct {
+	grpc.ServerStream
+}
+
+func (x *chatServiceWatchPersonsServer) Send(m *PersonalInformation) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // ChatService_ServiceDesc is the grpc.ServiceDesc for ChatService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,6 +223,17 @@ var ChatService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ChatService_Register_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "RegisterPersons",
+			Handler:       _ChatService_RegisterPersons_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "WatchPersons",
+			Handler:       _ChatService_WatchPersons_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "personInfo.proto",
 }
