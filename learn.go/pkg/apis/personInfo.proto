@@ -1,0 +1,19 @@
+syntax = "proto3";
+option go_package="./;apis";
+package apis;
+
+service ChatService {
+  rpc Register(PersonalInformation) returns (PersonalInformation){}
+
+}
+
+message PersonalInformationList {
+  repeated PersonalInformation items = 1;
+}
+
+message PersonalInformation {
+  int64 id = 1;
+  string nickname = 2;
+  string password = 3;
+  int64 account = 4;
+}
