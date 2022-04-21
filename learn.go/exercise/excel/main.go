@@ -20,7 +20,7 @@ func main() {
 	//}
 	//fmt.Println(cell)
 	// 获取 Sheet1 上所有单元格
-	rows, err := f.GetRows("Sheet0")
+	rows, err := f.GetRows("sheet1")
 	sql := make([]string, 0)
 	fmt.Println(len(rows))
 	for i, row := range rows[1:] {
