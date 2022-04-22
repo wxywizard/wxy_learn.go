@@ -21,19 +21,19 @@ func generateSql(f *excelize.File) {
 	if err == nil {
 		rowsR := rows[2:]
 		for i, row := range rowsR {
-			if i < 106 {
+			if i < 108 {
 				gw := generatorGW(row)
 				sql = append(sql, gw)
 			}
-			if i < 46 {
+			if i < 47 {
 				bc := generatorBC(row)
 				sql = append(sql, bc)
 			}
-			if i < 40 {
+			if i < 43 {
 				wy := generatorWY(row)
 				sql = append(sql, wy)
 			}
-			if i < 16 {
+			if i < 41 {
 				wy := generatorZT(row)
 				sql = append(sql, wy)
 			}
